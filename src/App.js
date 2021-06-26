@@ -15,7 +15,7 @@ const doesPersonExistInList = (people, newperson) => {
 const App = () => {
   const [people, setPeople] = useState([]);
   const [filterValue, setFilterValue] = useState("");
-  const [notification, setNotification] = useState("test");
+  const [notification, setNotification] = useState(null);
 
   // gets data from json server on first load
   useEffect(() => {
@@ -100,7 +100,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notification} />
+
       <InputFilter value={filterValue} onValueChange={handleFilterChange} />
       <h2> add a new</h2>
       <InputPerson
@@ -114,6 +114,7 @@ const App = () => {
         filterValue={filterValue}
         handlePeopleChange={handleDeleteClick}
       />
+      <Notification message={notification} />
     </div>
   );
 };

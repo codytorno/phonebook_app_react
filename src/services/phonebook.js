@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://localhost:3001/phonebook";
+const baseURL = "/api/persons";
 
 // Gets all elements on the json in base url
 const getAll = () => {
