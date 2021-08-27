@@ -40,7 +40,7 @@ const InputPerson = ({ addPersonHandled, updatePersonHandled, people }) => {
       addPersonHandled(e, personToAdd);
     } else {
       let confirm = window.confirm(
-        `${personToAdd.name} is already in the phonebook, repleace the old number with updated number?`
+        `${personToAdd.name} is already in the phonebook, replace the old number with updated number?`
       );
       if (confirm) {
         matchingPerson.number = personToAdd.number;
