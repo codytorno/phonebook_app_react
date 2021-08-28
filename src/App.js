@@ -6,12 +6,6 @@ import InputPerson from "./components/InputPerson";
 import Notification from "./components/Notification";
 import pBService from "./services/phonebook";
 
-const doesPersonExistInList = (people, newperson) => {
-  return people.some(
-    (person) => person.name.toUpperCase() === newperson.toUpperCase()
-  );
-};
-
 const App = () => {
   const [people, setPeople] = useState([]);
   const [filterValue, setFilterValue] = useState("");
@@ -47,11 +41,6 @@ const App = () => {
   // event Handler => adds person to json
   const handleAddClick = (event, person) => {
     event.preventDefault();
-    if (doesPersonExistInList(people, person.name)) {
-      setNotification(`${person.name} is already added to phonebook`);
-      setTimeout(setNotification(null), 3000);
-      return;
-    }
     pBService
       .createNew(person)
       .then((addedperson) => {
@@ -59,6 +48,12 @@ const App = () => {
       })
       .then(() => {
         setNotification(`Added ${person.name} to phonebook`);
+        setTimeout(() => setNotification(null), 3000);
+        return;
+      })
+      .catch((error) => {
+        // display the error to the user
+        setNotification(error.response.data);
         setTimeout(() => setNotification(null), 3000);
         return;
       });
@@ -84,10 +79,7 @@ const App = () => {
         setNotification(
           `Note '${person.name}' was already removed from server`
         );
-        setTimeout(() => {
-          setNotification(null);
-        }, 5000);
-        setPeople(people.filter((n) => n.name !== person.name));
+        setTimeout(() => setNotification(null), 5000);
       });
   };
 
